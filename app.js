@@ -1,15 +1,16 @@
 const gameWindow = document.getElementById("gameWindow");
 const canvas = gameWindow.getContext("2d");
 
-canvas.fillStyle = "white";
+gameWindow.width = window.innerWidth;
+gameWindow.height = window.innerHeight;
+
+canvas.fillStyle = "clear";
 
 const playerMonAnim = new Image();
 const opposingMonAnim = new Image();
 
-const playerPokemon = pokemon.bulbasaur;
-const playerLevel = 6;
-const opposingPokemon = pokemon.tyranitar;
-const opposingLevel = 7;
+const randomPokemon = eval("pokemon." + Object.keys(pokemon)[Math.floor(Math.random() * (Object.keys(pokemon).length - 0) + 0)]);
+const randomLevel = Math.floor((Math.random() * 101 - 1) + 1);
 
 class animatePokemon{
 	constructor(currentFrame, maxFrame, x, y, sprite, spriteID){
@@ -26,7 +27,7 @@ class animatePokemon{
 		this.frameCount++;
 		this.sprite.src = this.spriteID;
 		canvas.drawImage(this.sprite, this.currentFrame * this.sprite.width / this.maxFrame, 0, this.sprite.width / this.maxFrame, this.sprite.height, this.x, this.y, this.sprite.width / this.maxFrame, this.sprite.height);
-		if(this.frameCount == 4){
+		if(this.frameCount == 3){
 			this.frameCount = 0;
 			this.currentFrame++;
 		};
@@ -36,44 +37,42 @@ class animatePokemon{
 	};
 };
 
-const playerMonAnimate = new animatePokemon(0, playerPokemon.backFrames, 200, 200, playerMonAnim, "AssetsPNG/Back/" + playerPokemon.id + ".png");
-const opposingMonAnimate = new animatePokemon(0, opposingPokemon.frontFrames, 500, 100, opposingMonAnim, "AssetsPNG/Front/" + opposingPokemon.id + ".png");
+console.log(trainers.trainer1.name);
+console.log(trainers.trainer1.team);
 
-console.log(playerPokemon.name);
-console.log(playerPokemon.type);
-console.log(playerPokemon.hp);
-console.log(playerPokemon.attack);
-console.log(playerPokemon.defense);
-console.log(playerPokemon.spatck);
-console.log(playerPokemon.spdef);
-console.log(playerPokemon.speed);
+playerTeam.slot1 = {level: 62, pokemon: pokemon.tyranitar};
+playerTeam.slot2 = {level: 41, pokemon: pokemon.venusaur};
+console.log(playerTeam);
 
-for(var i = 0; i < playerPokemon.moves.length; i++){
-	if(playerPokemon.moves[i].level <= playerLevel){
-		console.log(playerPokemon.moves[i].move);
-	};
+function startSinglesBattle(playerPokemon, opposingPokemon, battleState){
+	const playerMonAnimate = new animatePokemon(0, playerPokemon.pokemon.backFrames, 200, 200, playerMonAnim, "AssetsPNG/Back/" + playerPokemon.pokemon.id + ".png");
+	const opposingMonAnimate = new animatePokemon(0, opposingPokemon.frontFrames, 500, 100, opposingMonAnim, "AssetsPNG/Front/" + opposingPokemon.id + ".png");
+	
+	printPokemonData(playerPokemon.pokemon, playerPokemon.level);
+	printPokemonData(opposingPokemon, randomLevel);
+
+	calculatePokemonStats(playerPokemon.pokemon, playerPokemon.level);
+	
+	return[playerMonAnimate, opposingMonAnimate];
 };
 
-console.log(opposingPokemon.name);
-console.log(opposingPokemon.type);
-console.log(opposingPokemon.hp);
-console.log(opposingPokemon.attack);
-console.log(opposingPokemon.defense);
-console.log(opposingPokemon.spatck);
-console.log(opposingPokemon.spdef);
-console.log(opposingPokemon.speed);
+let battleAnimate = startSinglesBattle(playerTeam.slot2, randomPokemon);
 
-for(var i = 0; i < opposingPokemon.moves.length; i++){
-	if(opposingPokemon.moves[i].level <= opposingLevel){
-		console.log(opposingPokemon.moves[i].move);
-	};
-};
+var inBattle = false;
+var frameCount = 0;
 
 function animate(){
 	window.requestAnimationFrame(animate);
 	canvas.fillRect(0, 0, gameWindow.width, gameWindow.height);
 	
-	playerMonAnimate.animate();
-	opposingMonAnimate.animate();
+	frameCount++;
+	
+	if(inBattle == false && frameCount > 500){
+		battleAnimate = startSinglesBattle(playerTeam.slot1, randomPokemon);
+		inBattle = true;
+	};
+	
+	battleAnimate[0].animate();
+	battleAnimate[1].animate();
 };
 animate();
