@@ -26,4 +26,5 @@ const moves = {
 	amnesia: {name: "Amnesia", moveType: moveTypes.status, type: types.psychic, bp: 0, accuracy: 0, pp: 20},
 	powerwhip: {name: "Power Whip", moveType: moveTypes.physical, type: types.grass, bp: 120, accuracy: 85, pp: 10},
 	earthquake: {name: "Earthquake", moveType: moveTypes.physical, type: types.ground, bp: 100, accuracy: 100, pp: 10},
+	psychic: {name: "Psychic", moveType: moveTypes.special, type: types.psychic, bp: 90, accuracy: 100, pp: 10},
 };

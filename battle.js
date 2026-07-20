@@ -1,3 +1,14 @@
+const fightbutton = document.getElementById("fight");
+const bagbutton = document.getElementById("bag");
+const pokemonbutton = document.getElementById("pokemon");
+const runbutton = document.getElementById("run");
+
+const move1button = document.getElementById("move1");
+const move2button = document.getElementById("move2");
+const move3button = document.getElementById("move3");
+const move4button = document.getElementById("move4");
+const backbutton = document.getElementById("back");
+
 function printPokemonData(pokemon, level){
 	console.log(pokemon.name);
 	console.log("lvl: " +  level);
@@ -32,3 +43,28 @@ function calculatePokemonStats(pokemon, level){
 	return [uniqueHealth, uniqueAttack, uniqueDefense, uniqueSpAtck, uniqueSpDef, uniqueSpeed];
 };
 
+fightbutton.addEventListener("click", fight => {
+	fightbutton.style.display = "none";
+	bagbutton.style.display = "none";
+	pokemonbutton.style.display = "none";
+	runbutton.style.display = "none";
+
+	move1button.style.display = "inline-block";
+	move2button.style.display = "inline-block";
+	move3button.style.display = "inline-block";
+	move4button.style.display = "inline-block";
+	backbutton.style.display = "inline-block";
+});
+
+backbutton.addEventListener("click", back => {
+	move1button.style.display = "none";
+	move2button.style.display = "none";
+	move3button.style.display = "none";
+	move4button.style.display = "none";
+	backbutton.style.display = "none";
+	
+	fightbutton.style.display = "inline-block";
+	bagbutton.style.display = "inline-block";
+	pokemonbutton.style.display = "inline-block";
+	runbutton.style.display = "inline-block";
+});

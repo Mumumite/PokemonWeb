@@ -1,4 +1,5 @@
-playerName = "Player";
+var playerName = "Player";
+var inBattle = false;
 
 playerTeam = {
 	slot1: {},
