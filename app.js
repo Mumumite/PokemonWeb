@@ -40,23 +40,45 @@ class animatePokemon{
 console.log(trainers.trainer1.name);
 console.log(trainers.trainer1.team);
 
-playerTeam.slot1 = {level: 62, pokemon: pokemon.tyranitar};
+playerTeam.slot1 = {level: 62, pokemon: pokemon.charizard};
 playerTeam.slot2 = {level: 41, pokemon: pokemon.venusaur};
+playerTeam.slot3 = {level: 92, pokemon: pokemon.deoxys};
+
+playerBag.push({amount: 2, item: items.potion});
+playerBag.push({amount: 5, item: items.ultraball});
+playerBag.push({amount: 1, item: items.masterball});
+
 console.log(playerTeam);
 
 var playerMonAnimate;
 var opposingMonAnimate;
+var currentBattleMon = playerTeam.slot1;
 
 function startSinglesBattle(playerPokemon, opposingPokemon){
 	if(inBattle == false){
 		inBattle = true;
-		playerMonAnimate = new animatePokemon(0, playerPokemon.pokemon.backFrames, 200, 500, playerMonAnim, "AssetsPNG/Back/" + playerPokemon.pokemon.id + ".png");
+		currentBattleMon = playerPokemon;
+		playerMonAnimate = new animatePokemon(0, currentBattleMon.pokemon.backFrames, 200, 500, playerMonAnim, "AssetsPNG/Back/" + currentBattleMon.pokemon.id + ".png");
 		opposingMonAnimate = new animatePokemon(0, opposingPokemon.frontFrames, 600, 300, opposingMonAnim, "AssetsPNG/Front/" + opposingPokemon.id + ".png");
 		
-		printPokemonData(playerPokemon.pokemon, playerPokemon.level);
+		printPokemonData(currentBattleMon.pokemon, currentBattleMon.level);
 		printPokemonData(opposingPokemon, randomLevel);
+		
+		for(var i = 1; i < 7; i++){
+			if(eval("playerTeam.slot" + i + ".pokemon")){
+				eval("pokemon" + i + "button.innerText = playerTeam.slot" + i + ".pokemon.name");
+			};
+		};
+		
+		for(var i = 1; i < 5; i++){
+			if(currentBattleMon.pokemon.moveList[currentBattleMon.pokemon.moveList.length - 1 - (i - 1)]){
+				eval("move" + i + "button.innerText = currentBattleMon.pokemon.moveList[currentBattleMon.pokemon.moveList.length - 1 - (" + i + "- 1)].move.name");
+			}else{
+				eval("move" + i + "button.innerText = '---'");
+			};
+		};
 
-		calculatePokemonStats(playerPokemon.pokemon, playerPokemon.level);
+		calculatePokemonStats(currentBattleMon.pokemon, currentBattleMon.level);
 	};
 };
 
@@ -71,7 +93,7 @@ function animate(){
 	window.requestAnimationFrame(animate);
 	canvas.fillRect(0, 0, gameWindow.width, gameWindow.height);
 	
-	startSinglesBattle(playerTeam.slot1, randomPokemon);
+	startSinglesBattle(currentBattleMon, randomPokemon);
 	
 	checkForBattle();
 };

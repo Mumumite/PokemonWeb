@@ -9,3 +9,5 @@ playerTeam = {
 	slot5: {},
 	slot6: {}
 };
+
+playerBag = [];
