@@ -135,6 +135,20 @@ pokemon4button.addEventListener("click", pokemon4 => {
 		currentBattleMon = playerTeam.slot4;
 	};
 });
+
+pokemon5button.addEventListener("click", pokemon5 => {
+	if(currentBattleMon != playerTeam.slot5 && playerTeam.slot5.pokemon){
+		inBattle = false;
+		currentBattleMon = playerTeam.slot5;
+	};
+});
+
+pokemon6button.addEventListener("click", pokemon6 => {
+	if(currentBattleMon != playerTeam.slot6 && playerTeam.slot6.pokemon){
+		inBattle = false;
+		currentBattleMon = playerTeam.slot6;
+	};
+});
 		
 move1button.addEventListener("click", move1 => {
 	if(currentBattleMon.pokemon.moveList[currentBattleMon.pokemon.moveList.length - 1]){

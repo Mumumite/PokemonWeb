@@ -42,7 +42,9 @@ console.log(trainers.trainer1.team);
 
 playerTeam.slot1 = {level: 62, pokemon: pokemon.charizard};
 playerTeam.slot2 = {level: 41, pokemon: pokemon.venusaur};
-playerTeam.slot3 = {level: 92, pokemon: pokemon.deoxys};
+playerTeam.slot3 = {level: 63, pokemon: pokemon.tyranitar};
+playerTeam.slot4 = {level: 52, pokemon: pokemon.steelix};
+playerTeam.slot5 = {level: 92, pokemon: pokemon.zygarde};
 
 playerBag.push({amount: 2, item: items.potion});
 playerBag.push({amount: 5, item: items.ultraball});
@@ -67,6 +69,8 @@ function startSinglesBattle(playerPokemon, opposingPokemon){
 		for(var i = 1; i < 7; i++){
 			if(eval("playerTeam.slot" + i + ".pokemon")){
 				eval("pokemon" + i + "button.innerText = playerTeam.slot" + i + ".pokemon.name");
+			}else{
+				eval("pokemon" + i + "button.innerText = '---'");
 			};
 		};
 		
